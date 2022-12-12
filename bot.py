@@ -7,6 +7,8 @@ from tgbot.handlers.user import register_user
 from tgbot.handlers.echo import register_echo
 from tgbot.middlewares.environment import EnvironmentMiddleware
 from tgbot.misc.sheduler import sheduler_jobs
+from tgbot.models.db_connector import sql_start, dumper
+
 
 from create_bot import bot, dp, config, sheduler
 
@@ -43,8 +45,9 @@ async def main():
     register_all_middlewares(dp, config)
     register_all_filters(dp)
     register_all_handlers(dp)
-    sheduler.start()
-    sheduler_jobs()
+    # sheduler.start()
+    # sheduler_jobs()
+    sql_start()
 
     # start
     try:
