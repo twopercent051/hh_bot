@@ -110,15 +110,28 @@ async def change_status(callback: CallbackQuery):
     await bot.answer_callback_query(callback.id)
     await callback.message.delete()
 
+
+async def user_counter(callback: CallbackQuery):
+    users = await get_all_users()
+    user_counter = len(users)
+    text = f'Сейчас зарегистрированно {user_counter} пользователей'
+    keyboard = home_kb()
+    await callback.message.answer(text, reply_markup=keyboard)
+    await bot.answer_callback_query(callback.id)
+
+
 def register_admin(dp: Dispatcher):
     dp.register_message_handler(admin_start_msg, commands=["start"], state="*", is_admin=True)
 
     dp.register_callback_query_handler(request_menu, lambda x: x.data == 'admin_requests', state='*', is_admin=True)
     dp.register_callback_query_handler(dump_db, lambda x: x.data == 'dump_db', state='*', is_admin=True)
     dp.register_callback_query_handler(admin_start_clb, lambda x: x.data == 'home', state='*', is_admin=True)
-    dp.register_callback_query_handler(schow_completed_requests, lambda x: x.data == 'completed', state='*', is_admin=True)
-    dp.register_callback_query_handler(schow_uncompleted_requests, lambda x: x.data == 'uncompleted', state='*', is_admin=True)
+    dp.register_callback_query_handler(schow_completed_requests, lambda x: x.data == 'completed', state='*',
+                                       is_admin=True)
+    dp.register_callback_query_handler(schow_uncompleted_requests, lambda x: x.data == 'uncompleted', state='*',
+                                       is_admin=True)
     dp.register_callback_query_handler(change_status, lambda x: x.data.split(':')[0] in ['to_restart', 'to_finish'],
                                        state='*', is_admin=True)
+    dp.register_callback_query_handler(user_counter, lambda x: x.data == 'user_counter', state='*', is_admin=True)
 
 

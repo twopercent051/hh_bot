@@ -14,8 +14,9 @@ def send_request_kb(id):
 
 def main_admin_menu_kb():
     button_1 = InlineKeyboardButton(text='🔍 Посмотреть заявки 🔎', callback_data='admin_requests')
-    button_2 = InlineKeyboardButton(text='⚙️ Дамп базы ⚙️', callback_data='dump_db')
-    keyboard = InlineKeyboardMarkup(row_width=1).add(button_1, button_2)
+    button_2 = InlineKeyboardButton(text='🗄 Кол-во пользователей 🗄', callback_data='user_counter')
+    button_3 = InlineKeyboardButton(text='⚙️ Дамп базы ⚙️', callback_data='dump_db')
+    keyboard = InlineKeyboardMarkup(row_width=1).add(button_1, button_2, button_3)
     return keyboard
 
 def home_kb():

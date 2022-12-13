@@ -45,8 +45,8 @@ async def main():
     register_all_middlewares(dp, config)
     register_all_filters(dp)
     register_all_handlers(dp)
-    # sheduler.start()
-    # sheduler_jobs()
+    sheduler.start()
+    sheduler_jobs()
     sql_start()
 
     # start

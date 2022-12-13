@@ -25,6 +25,11 @@ async def user_start(message: Message):
         'для связи. Но это сильно позже, а пока можно начать с поиска вакансии мечты😊.'
     ]
     keyboard = main_user_menu_kb()
+    user_id = message.from_user.id
+    username = message.from_user.username
+    check_user = await is_user(user_id)
+    if check_user == False:
+        await create_user(user_id, username)
     await message.answer(' '.join(text), reply_markup=keyboard)
 
 
@@ -60,7 +65,7 @@ async def searcher(message: Message):
 
 
 async def get_user_contact(callback: CallbackQuery, state: FSMContext):
-    text = 'Введите ваше имя и номер телефона и мы с вами свяжемся в ближайшее время'
+    text = 'Введите ваше имя и номер телефона, а так же возраст. HR-специалист свяжется с Вами ближайшее время'
     async with state.proxy() as data:
         data['user_id'] = callback.from_user.id
         if callback.from_user.username is not None:
